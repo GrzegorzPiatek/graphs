@@ -99,7 +99,22 @@ class Graph_M():
                     self.graph[w][c] = 1
                 elif value > 0 and up == 0:
                     self.graph[c][w] = 1
+                    
+                    
+    def euler_finder_help(self, graf, vert, u, s):
+        for i in range(vert):
+            if graf[u][i] == 1:
+                graf[u][i] = None
+                self.euler_finder_help(graf, vert, i, s)
+        s.append(u)
 
+    def euler_finder(self):
+        vert = self.V
+        graf = self.graph
+        stack = []
+        self.euler_finder_help(graf, vert, 0, stack)
+        stack.reverse()
+        print(stack)
 
 class Graph_L:
     def __init__(self, wierzcholki):
