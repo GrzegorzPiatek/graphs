@@ -99,6 +99,26 @@ class Graph_M():
                     self.graph[w][c] = 1
                 elif value > 0 and up == 0:
                     self.graph[c][w] = 1
+                    
+                    
+    def euler_matrix_generator(self, saturation):
+
+        # max_edges = int((self.V * (self.V-1) * 0.5 * 0.01 * saturation)*0.5) *2
+        # print(max_edges)
+        series = [None]*self.V
+        for w in range(self.V):
+            print(series)
+            newconection = False
+            while not newconection:
+                new = random.randint(0,self.V-1)
+                if not (new in series) and not (new == w):
+                    series[w] = new
+                    newconection = True
+            self.graph[w][series[w]] = 1
+            self.graph[series[w]][w] = 1
+
+        for i in range(self.V):
+            print(self.graph[i], sum(self.graph[i]))
 
 
 class Graph_L:
