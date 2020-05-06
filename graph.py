@@ -101,6 +101,30 @@ class Graph_M():
                     self.graph[c][w] = 1
                     
                     
+    def euler_matrix_generator(self, saturation):
+
+        degrees = [None]*self.V
+        for w in range(self.V):
+            for c in range(w + 1, self.V):
+                value = random.randint(0 - (100 - saturation), saturation)
+                if value > 0:
+                    self.graph[w][c] = 1
+            degrees[w] = sum(self.graph[w])
+
+        for w in range(self.V):
+            if degrees[w] % 2 == 1:
+                v = random.randint(w,self.V-1)
+                if self.graph[w][v]:
+                    self.graph[w][v] = 0
+                else:
+                    self.graph[w][v] = 1
+                    
+        for w in range(self.V):
+            for c in range(self.V):
+                if self.graph[w][c]:
+                    self.graph[c][w] = 1     
+                    
+                    
     def euler_finder_help(self, graf, vert, u, s):
         for i in range(vert):
             if graf[u][i] == 1:
