@@ -374,7 +374,7 @@ while option:
         plik = open("graf.txt")
 
         for line in plik:
-                tmp.append(list(line))
+            tmp.append(list(line.split()))
 
         v = int(tmp[0][0])
         matrix = [[0]]*v
@@ -429,7 +429,7 @@ while option:
         plik = open("graf.txt")
 
         for line in plik:
-                tmp.append(list(line))
+            tmp.append(list(line.split()))
 
         v = int(tmp[0][0])
         matrix = [[0]]*v
