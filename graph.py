@@ -129,16 +129,60 @@ class Graph_M():
         for i in range(vert):
             if graf[u][i] == 1:
                 graf[u][i] = None
+                graf[i][u] = None
                 self.euler_finder_help(graf, vert, i, s)
         s.append(u)
 
     def euler_finder(self):
         vert = self.V
-        graf = self.graph
         stack = []
+        graf = self.graph.copy()
         self.euler_finder_help(graf, vert, 0, stack)
-        stack.reverse()
         print(stack)
+
+    def hamilton_finder_help(self, s, u):
+        s.append(u)
+        for i in range(self.V):
+            if self.graph[u][i] == 1 and i not in s:
+                self.hamilton_finder_help(s, i)
+        if len(s) == self.V:
+            if self.graph[u][s[0]] == 1:
+                s.append(s[0])
+        else:
+            s.pop(len(s) - 1)
+
+    def hamilton_finder(self):
+        s = []
+        for i in range(self.V):
+            if len(s) == self.V + 1:
+                break
+            else:
+                self.hamilton_finder_help(s, i)
+        s.append(s[0])
+        print(s)
+
+    def hamilton_finder_all_help(self, s, u):
+        temp = s.copy()
+        temp.append(u)
+        for i in range(self.V):
+            if self.graph[u][i] == 1 and i not in temp:
+                self.hamilton_finder_all_help(temp, i)
+
+        if len(temp) == self.V:
+            if self.graph[u][temp[0]] == 1:
+                temp.append(temp[0])
+                print(temp)
+
+        else:
+            temp.pop(len(s) - 1)
+
+    def hamilton_finder_all(self):
+        s = []
+        for i in range(self.V):
+            if len(s) == self.V + 1:
+                break
+            else:
+                self.hamilton_finder_all_help(s, i)
 
 class Graph_L:
     def __init__(self, wierzcholki):
