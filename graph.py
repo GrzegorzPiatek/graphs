@@ -407,117 +407,125 @@ def graph_MST():
         stop = timer()
         print(cut_to_seconds(timedelta(seconds=stop - start)))
 
+def menu():
+    option = True
+    while option:
+        print("============MENU============ \n"
+              "1. Import and sort \n"
+              "2. Generate and sort \n"
+              "3. Import and find MST \n"
+              "4. Generate and find MST \n"
+              "0. Exit \n ========================== \n"
+              "Select: ")
 
-option = True
-while option:
-    print("============MENU============ \n 1. Import and sort \n 2. Generate and sort \n 3. Import and find MST \n 4. Generate and find MST \n 0. Exit \n ========================== \n Select: ")
-    option = int(input())
+        option = int(input())
 
-    if option == 1:
-        tmp = []
-        plik = open("graf.txt")
+        if option == 1:
+            tmp = []
+            plik = open("topol.txt")
 
-        for line in plik:
-            tmp.append(list(line.split()))
+            for line in plik:
+                tmp.append(list(line.split()))
 
-        v = int(tmp[0][0])
-        matrix = [[0]]*v
-        dict = defaultdict()
-        gl = Graph_L(v)
-        gm = Graph_M(v)
+            v = int(tmp[0][0])
+            matrix = [[0]]*v
+            dict = defaultdict()
+            gl = Graph_L(v)
+            gm = Graph_M(v)
 
-        for i in range(1,v+1):
-            temporary = []
-            tempdict = []
-            for j in range(v):
-                temporary.append(int(tmp[i][j]))
-                if int(tmp[i][j]):
-                    tempdict.append(j)
-            dict[i-1] = tempdict
-            matrix[i - 1] = temporary
-        gl.graph = dict
-        gm.graph = matrix
+            for i in range(1,v + 1):
+                temporary = []
+                tempdict = []
+                for j in range(v):
+                    temporary.append(int(tmp[i][j]))
+                    if int(tmp[i][j]):
+                        tempdict.append(j)
+                dict[i - 1] = tempdict
+                matrix[i - 1] = temporary
+            gl.graph = dict
+            gm.graph = matrix
 
-        start = timer()
-        gl.topologicalSort()
-        stop = timer()
-        print("Lista: ",cut_to_seconds(timedelta(seconds=stop - start)))
+            start = timer()
+            gl.topologicalSort()
+            stop = timer()
+            print("Lista: ",cut_to_seconds(timedelta(seconds=stop - start)))
 
-        start = timer()
-        gm.topologicalSort()
-        stop = timer()
-        print("Macierz: ",cut_to_seconds(timedelta(seconds=stop - start)))
-
-
-    if option == 2:
-        v = int(input("V: "))
-        saturation = int(input("%: "))
-        gl = Graph_L(v)
-        gm = Graph_M(v)
-        gl.connect_DAG_list_generator(saturation)
-        gm.connect_DAG_matrix_generator(saturation)
-
-        start = timer()
-        gl.topologicalSort()
-        stop = timer()
-        print("Lista: ", cut_to_seconds(timedelta(seconds=stop - start)))
-
-        start = timer()
-        gm.topologicalSort()
-        stop = timer()
-        print("Macierz: ", cut_to_seconds(timedelta(seconds=stop - start)))
+            start = timer()
+            gm.topologicalSort()
+            stop = timer()
+            print("Macierz: ",cut_to_seconds(timedelta(seconds=stop - start)))
 
 
-    if option == 3:
-        tmp = []
-        plik = open("graf.txt")
+        if option == 2:
+            v = int(input("V: "))
+            saturation = int(input("%: "))
+            gl = Graph_L(v)
+            gm = Graph_M(v)
+            gl.connect_DAG_list_generator(saturation)
+            gm.connect_DAG_matrix_generator(saturation)
 
-        for line in plik:
-            tmp.append(list(line.split()))
+            start = timer()
+            gl.topologicalSort()
+            stop = timer()
+            print("Lista: ", cut_to_seconds(timedelta(seconds=stop - start)))
 
-        v = int(tmp[0][0])
-        matrix = [[0]]*v
-        dict = defaultdict()
-        gl = Graph_L(v)
-        gm = Graph_M(v)
-
-        for i in range(1,v+1):
-            temporary = []
-            tempdict = defaultdict()
-            for j in range(v):
-                temporary.append(int(tmp[i][j]))
-                if int(tmp[i][j]):
-                    tempdict[j] = int(tmp[i][j])
-            dict[i-1] = tempdict
-            matrix[i - 1] = temporary
-        gl.graph = dict
-        gm.graph = matrix
-
-        start = timer()
-        gl.primMST()
-        stop = timer()
-        print("Lista: ",cut_to_seconds(timedelta(seconds=stop - start)))
-
-        start = timer()
-        gm.primMST()
-        stop = timer()
-        print("Macierz: ",cut_to_seconds(timedelta(seconds=stop - start)))
+            start = timer()
+            gm.topologicalSort()
+            stop = timer()
+            print("Macierz: ", cut_to_seconds(timedelta(seconds=stop - start)))
 
 
-    if option == 4:
-        v = int(input("V: "))
-        saturation = int(input("%: "))
-        gl = Graph_L(v)
-        gm = Graph_M(v)
-        gm.value_DAG_matrix_generator(saturation)
-        gl.graph = matrix_to_list(gm.graph)
+        if option == 3:
+            tmp = []
+            plik = open("mst.txt")
 
-        start = timer()
-        gl.primMST()
-        stop = timer()
-        print("Lista: ", cut_to_seconds(timedelta(seconds=stop - start)))
+            for line in plik:
+                tmp.append(list(line.split()))
 
-        start = timer()
-        gm.primMST()
-        stop = timer()
-        print("Macierz: ", cut_to_seconds(timedelta(seconds=stop - start)))
+            v = int(tmp[0][0])
+            matrix = [[0]]*v
+            dict = defaultdict()
+            gl = Graph_L(v)
+            gm = Graph_M(v)
+
+            for i in range(1,v+1):
+                temporary = []
+                tempdict = defaultdict()
+                for j in range(v):
+                    temporary.append(int(tmp[i][j]))
+                    if int(tmp[i][j]):
+                        tempdict[j] = int(tmp[i][j])
+                dict[i-1] = tempdict
+                matrix[i - 1] = temporary
+            gl.graph = dict
+            gm.graph = matrix
+
+            start = timer()
+            gl.primMST()
+            stop = timer()
+            print("Lista: ",cut_to_seconds(timedelta(seconds=stop - start)))
+
+            start = timer()
+            gm.primMST()
+            stop = timer()
+            print("Macierz: ",cut_to_seconds(timedelta(seconds=stop - start)))
+
+
+        if option == 4:
+            v = int(input("V: "))
+            saturation = int(input("%: "))
+            gl = Graph_L(v)
+            gm = Graph_M(v)
+            gm.value_DAG_matrix_generator(saturation)
+            gl.graph = matrix_to_list(gm.graph)
+
+            start = timer()
+            gl.primMST()
+            stop = timer()
+            print("Lista: ", cut_to_seconds(timedelta(seconds=stop - start)))
+
+            start = timer()
+            gm.primMST()
+            stop = timer()
+            print("Macierz: ", cut_to_seconds(timedelta(seconds=stop - start)))
+        next = input()
