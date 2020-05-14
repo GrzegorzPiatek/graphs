@@ -159,7 +159,7 @@ class Graph_M():
                 self.hamilton_finder_help(s, i)
         if len(s) == self.V:
             if self.graph[u][s[0]] == 1:
-                s.append(s[0])
+                return s
         else:
             s.pop(len(s) - 1)
 
@@ -190,11 +190,7 @@ class Graph_M():
 
     def hamilton_finder_all(self):
         s = []
-        for i in range(self.V):
-            if len(s) == self.V + 1:
-                break
-            else:
-                self.hamilton_finder_all_help(s, i)
+        self.hamilton_finder_all_help(s, 0)
                 
     def export(self, name, type):
         file = open(name, type)
