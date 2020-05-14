@@ -195,6 +195,15 @@ class Graph_M():
                 break
             else:
                 self.hamilton_finder_all_help(s, i)
+                
+    def export(self, name, type):
+        file = open(name, type)
+        for i in range(self.V):
+            for j in range(self.V):
+                file.write(str(self.graph[i][j]))
+                file.write(" ")
+            file.write("\n")
+        file.close()
 
 class Graph_L:
     def __init__(self, wierzcholki):
